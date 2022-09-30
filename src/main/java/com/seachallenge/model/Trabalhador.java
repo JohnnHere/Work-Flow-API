@@ -153,4 +153,6 @@ public class Trabalhador {
     public void setSetor(Setor setor) {
         this.setor = setor;
     }
+
+
 }
