@@ -48,10 +48,6 @@ public class Trabalhador {
 
     @ManyToOne
     @JsonIgnoreProperties("trabalhador")
-    private Endereco endereco;
-
-    @ManyToOne
-    @JsonIgnoreProperties("trabalhador")
     private Cargo cargo;
 
     @ManyToOne
@@ -130,14 +126,6 @@ public class Trabalhador {
         this.idade = idade;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public Cargo getCargo() {
         return cargo;
     }
@@ -153,4 +141,6 @@ public class Trabalhador {
     public void setSetor(Setor setor) {
         this.setor = setor;
     }
+
+
 }
