@@ -11,6 +11,4 @@ import java.util.Optional;
 @Repository
 public interface TrabalhadorRepository extends JpaRepository<Trabalhador, Long> {
     public List<Trabalhador> findAllByCpfContainingIgnoreCase(@Param("cpf")String cpf);
-
-    public Optional<Trabalhador> findByCpf(String cpf);
 }
