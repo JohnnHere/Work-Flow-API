@@ -1,11 +1,18 @@
 package com.seachallenge.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_trabalhador")
@@ -13,6 +20,7 @@ public class Trabalhador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     @NotBlank(message = "Gênero é uma informação obrigatória.")
     @Size(min = 3, max = 50)
@@ -43,8 +51,8 @@ public class Trabalhador {
     private String salario;
 
     @NotBlank(message = "Idade é uma informação obrigatória.")
-    @Size(min = 1, max = 3)
-    private Number idade;
+    @Size(min = 1, max = 10)
+    private String idade;
 
     @ManyToOne
     @JsonIgnoreProperties("trabalhador")
@@ -118,11 +126,11 @@ public class Trabalhador {
         this.salario = salario;
     }
 
-    public Number getIdade() {
+    public String getIdade() {
         return idade;
     }
 
-    public void setIdade(Number idade) {
+    public void setIdade(String idade) {
         this.idade = idade;
     }
 
