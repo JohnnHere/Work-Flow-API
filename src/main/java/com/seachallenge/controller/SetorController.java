@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequestMapping("/setor")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SetorController {
+	
     @Autowired
     private SetorRepository setorRepository;
 
@@ -38,6 +39,15 @@ public class SetorController {
 
     @PostMapping
     public ResponseEntity<Setor> post(@Valid @RequestBody Setor setor){
+    	List<Setor> allSetor = setorRepository.findAll();
+    	
+    	for(Setor setorChecagem: allSetor) {
+    		if(setorChecagem.getNome().equals(setor.getNome())) {
+    			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+						.body(setor);
+    		}
+    	}
+    	
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(setorRepository.save(setor));
     }
