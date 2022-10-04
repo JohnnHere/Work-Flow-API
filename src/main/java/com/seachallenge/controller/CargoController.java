@@ -56,22 +56,13 @@ public class CargoController {
 
     @PostMapping
     public ResponseEntity<Cargo> post(@Valid @RequestBody Cargo cargo){
-        if(setorRepository.existsById(cargo.getSetor().getId()))
-        {
-        	List<Setor> allSetor = setorRepository.findAll();
+    	
+    	
         	
-        	for(Setor setor : allSetor) {
-        		for(Cargo cargo2 : setor.getCargo()) {
-        			if(cargo2.getNome().equals(cargo.getNome())) {
-        				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        						.body(cargo);
-        				
-        			}
-        		}
-        	}
-        	
+        	if(setorRepository.existsById(cargo.getSetor().getId()))	
+        		
         	return ResponseEntity.status(HttpStatus.CREATED)
-                .body(cargoRepository.save(cargo));}
+                .body(cargoRepository.save(cargo));
             
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
