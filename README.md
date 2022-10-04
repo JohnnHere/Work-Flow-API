@@ -2,7 +2,7 @@
 
 Este projeto se trata de uma API para organizar, registrar e analisar fluxo de trabalho. 
 
-Linguagens:
+## Linguagens:
 
 <div style="display: inline_block"><br>
   <img align="center" alt="Joao-Java" height="30" width="40" src="https://raw.githubusercontent.com/jmnote/z-icons/master/svg/java.svg">
@@ -50,4 +50,4 @@ Implementação de cyber segurança
 
 Criar o atributo multi valorado "endereço" dentro da entidade "trabalhador", como ilustrado no modelo a seguir:
 
-![image](https://user-images.githubusercontent.com/92900668/193937501-e52266e7-0054-4e37-bc8a-9abe49365fd5.png)
+![image](https://user-images.githubusercontent.com/92900668/193937788-343a5d69-d929-4cd2-8cc2-41703416ee88.png)
