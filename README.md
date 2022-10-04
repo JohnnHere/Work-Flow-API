@@ -2,7 +2,7 @@
 
 Este projeto se trata de uma API para organizar, registrar e analisar fluxo de trabalho. 
 
-## Linguagens:
+## Linguagens
 
 <div style="display: inline_block"><br>
   <img align="center" alt="Joao-Java" height="30" width="40" src="https://raw.githubusercontent.com/jmnote/z-icons/master/svg/java.svg">
