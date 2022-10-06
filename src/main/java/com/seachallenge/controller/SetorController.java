@@ -2,22 +2,27 @@ package com.seachallenge.controller;
 
 import com.seachallenge.model.Setor;
 import com.seachallenge.repository.SetorRepository;
+import com.seachallenge.service.SetorService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/setor")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SetorController {
+	
     @Autowired
     private SetorRepository setorRepository;
+    
+    @Autowired
+    private SetorService setorService;
 
 
     @GetMapping
@@ -37,27 +42,30 @@ public class SetorController {
     }
 
     @PostMapping
-    public ResponseEntity<Setor> post(@Valid @RequestBody Setor setor){
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(setorRepository.save(setor));
-    }
+    public ResponseEntity<Setor> post(@Valid @RequestBody Setor setor) throws Exception{
+    	
+    	return setorService.cadastrarSetor(setor)
+        		.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
+    			.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+    	
+    	}
+    	
 
     @PutMapping
     public ResponseEntity<Setor> put(@Valid @RequestBody Setor setor){
-        return setorRepository.findById(setor.getId())
-                .map(reposta -> ResponseEntity.status(HttpStatus.OK)
-                        .body(setorRepository.save(setor)))
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-
+    	
+    	return setorService.atualizarSetor(setor)
+        		.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
+    			.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+    	
     }
+    
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        Optional<Setor> setor = setorRepository.findById(id);
-
-        if(setor.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-        setorRepository.deleteById(id);
+    	
+        setorService.deletarSetor(id);
+        
     }
+    
 }

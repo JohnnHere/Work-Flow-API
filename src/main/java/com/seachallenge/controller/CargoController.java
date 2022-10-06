@@ -1,7 +1,6 @@
 package com.seachallenge.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -18,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.seachallenge.model.Cargo;
-import com.seachallenge.model.Setor;
 import com.seachallenge.repository.CargoRepository;
-import com.seachallenge.repository.SetorRepository;
+import com.seachallenge.service.CargoService;
 
 @RestController
 @RequestMapping("/cargo")
@@ -32,9 +28,9 @@ public class CargoController {
 
     @Autowired
     private CargoRepository cargoRepository;
-
+    
     @Autowired
-    private SetorRepository setorRepository;
+    private CargoService cargoService;
 
 
     @GetMapping
@@ -55,50 +51,25 @@ public class CargoController {
     }
 
     @PostMapping
-    public ResponseEntity<Cargo> post(@Valid @RequestBody Cargo cargo){
-        if(setorRepository.existsById(cargo.getSetor().getId()))
-        {
-        	List<Setor> allSetor = setorRepository.findAll();
-        	
-        	for(Setor setor : allSetor) {
-        		for(Cargo cargo2 : setor.getCargo()) {
-        			if(cargo2.getNome().equals(cargo.getNome())) {
-        				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        						.body(cargo);
-        				
-        			}
-        		}
-        	}
-        	
-        	return ResponseEntity.status(HttpStatus.CREATED)
-                .body(cargoRepository.save(cargo));}
-            
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    public ResponseEntity<Cargo> post(@Valid @RequestBody Cargo cargo) throws Exception{
+        		
+        	return cargoService.cadastrarCargo(cargo)
+        			.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
+        			.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+        			
     }
     @PutMapping
     public ResponseEntity<Cargo> put(@Valid @RequestBody Cargo cargo){
-        if (cargoRepository.existsById(cargo.getId())){
-
-            if(setorRepository.existsById(cargo.getSetor().getId()))
-                return ResponseEntity.status(HttpStatus.OK)
-                        .body(cargoRepository.save(cargo));
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    	
+    	return cargoService.atualizarCargo(cargo)
+    			.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
+    			.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 
         }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        Optional<Cargo> cargo = cargoRepository.findById(id);
-
-        if(cargo.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
-        cargoRepository.deleteById(id);
+        cargoService.deletarCargo(id);
     }
 }
