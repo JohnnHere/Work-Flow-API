@@ -37,7 +37,7 @@ Validation
 
 ## Modelo Conceitual: Modelo Entidade-Relacionamento
 
-![image](https://user-images.githubusercontent.com/92900668/193936993-729a2686-d6c6-4a78-98f0-e4e238657f07.png)
+![image](https://user-images.githubusercontent.com/92900668/196835469-048b185a-1ea0-4cc5-9d72-94dd3d193ede.png)
 
 ## Modelo Lógico: Modelo Relacional
 
@@ -50,4 +50,4 @@ Implementação de cyber segurança
 
 Criar o atributo multi valorado "endereço" dentro da entidade "trabalhador", como ilustrado no modelo a seguir:
 
-![image](https://user-images.githubusercontent.com/92900668/193937788-343a5d69-d929-4cd2-8cc2-41703416ee88.png)
+![image](https://user-images.githubusercontent.com/92900668/196835247-637ae0dc-366e-46dd-84f9-a552c31125a6.png)
